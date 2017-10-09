@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <style>
+      /* map style */
+      .comuni {
+      fill: lightblue; 
+      stroke: #000; 
+      stroke-width: 0.2px;
+      }
+      </style>
+  </head>
+
+  <body>
+    <script src="http://d3js.org/d3.v4.min.js"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <script>
+
+      var width = 600,
+      height = 700;
+
+      var svg = d3.select("body").append("svg")
+      .attr("width", width)
+      .attr("height", height);
+
+      d3.json("it_comuni.json", function(error, it) {
+
+        var projection = d3.geoAlbers()
+            .center([0, 41])
+            .rotate([347, 0])
+            .parallels([35, 45])
+            .scale(3000)
+            .translate([width / 2, height / 2]);
+
+        // get border of subunits
+        var subunits = topojson.feature(it, it.objects.italia);
+
+        var path = d3.geoPath()
+          .projection(projection);
+
+        // apply style
+        svg.append("path")
+        .datum(subunits)
+        .attr("class", "comuni")
+        .attr("d", path);
+      
+      })
+
+    </script>
+
+  </body>
+</html>
