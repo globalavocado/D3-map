@@ -5,24 +5,27 @@
     <style>
       /* map style */
       .comuni {
-      fill: lightblue; 
-      stroke: #000; 
-      stroke-width: 0.1px;
+        fill: lightblue; 
+        stroke: #000;
+        stroke-width: 0.1px;
       }
-
       .regioni {
-      fill: none;
-      stroke: #000;
-      stroke-width: 1.2px;
+        fill: none;
+        stroke: #000;
+        stroke-width: 1.2px;
       }
       </style>
   </head>
 
   <body>
+    <div id="select">
+      <button id="toggle" data="showing">commutare regioni</button>
+    </div>
 
     <div id="map"></div>
 
     <script src="http://d3js.org/d3.v4.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="http://d3js.org/topojson.v1.min.js"></script>
     <script>
 
@@ -45,10 +48,9 @@
       var path = d3.geoPath()
           .projection(projection);
 
-
-// append both map layers 
+      // append both map layers 
     
-       d3.queue()
+      d3.queue()
         .defer(d3.json, "it_comuni.json")
         .defer(d3.json, "it_regioni.json")
         .await(renderLayers);
@@ -61,15 +63,35 @@
             var subunits_com = topojson.feature(it_comuni, it_comuni.objects.italia);
             var subunits_reg = topojson.feature(it_regioni, it_regioni.objects.italia);
 
-            svg.append("path")
-            .datum(subunits_com)
-            .attr("class", "comuni")
-            .attr("d", path);
+
+            // add communes
 
             svg.append("path")
-            .datum(subunits_reg)
-            .attr("class", "regioni")
-            .attr("d", path);
+              .datum(subunits_com)
+              .attr("class", "comuni")
+              .attr("d", path);
+
+            // add regions
+            
+            svg.append("path")
+              .datum(subunits_reg)
+              .attr("class", "regioni")
+              .attr("d", path);
+      
+            // implement map layer toggle button
+
+            $("#select #toggle").click(function(){
+              if ($(this).attr("data") == "showing"){
+                $(".regioni").fadeOut();
+                $(this).text("nasconde regioni");
+                $(this).attr("data", "hiding");
+              } else {
+                $(".regioni").fadeIn();
+                $(this).text("mostra regioni");
+                $(this).attr("data", "showing");
+              }
+            });
+
         }
 
     </script>
