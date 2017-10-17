@@ -9,20 +9,27 @@ a map showing different administrative boundary levels of Italy and some statist
 done:
 - load map data from two different TopoJSON files
 - toggle map layers
+- load data from a csv file
 
 wish list:
-- load data from a csv file
+- separate legend from svg
+- add tooltips
+- select different number of classes
+- select different breaks (Equidistant, Quantile, Logarithmic, K-means)
 - ...
 
-## technologies used
+## libraries used
 
 - [D3.js](https://d3js.org/) v.4
 - TopoJSON
+- jQuery 3.2.1
+- D3 chromatic scale
 
 ## project status
 
-just started :blush:
+in progress :ghost:
 
 ## sources
 
-Italian boundary data and statistics from [ISTAT](http://www.istat.it/it/strumenti/territorio-e-cartografia) (Istituto Nazionale di Statistica)
+- boundary data: [ISTAT](http://www.istat.it/it/strumenti/territorio-e-cartografia) (Istituto Nazionale di Statistica)
+- commune-level statistics: [ANCI](http://ckan.ancitel.it/dataset/comuni-italiani-dati-territoriali-e-demografici) (Associazione Nazionale Comuni Italiani)
