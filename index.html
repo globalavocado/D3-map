@@ -8,23 +8,47 @@
         font-family:helvetica;
       }
 
-      h1, h2, button {
-        margin-left: 10px;
+      h1, h2, p {
+        margin-left: 0.5cm;
+      }
+
+      h2 {
+        border-radius: 5px;
+        padding: 5px 5px 5px;
+        background: white;
+      }
+
+      button {
+        margin: 0.5cm;
       }
 
       .comuni {
+        fill: #e5e5e5;
         stroke: #fff;
         stroke-width:0.1px;
       }
-      
+
       .regioni {
         fill: none;
         stroke: #000;
         stroke-width: 0.4px;
       }
 
+      #info {
+        position:absolute;
+        right: 10px;
+        width: 20%;
+      }
+
       .legend {
         font-size: 12px;
+      }
+
+      .legend text {
+      }
+
+      .comuni:hover {
+        cursor:crosshair;   
       }
 
       </style>
@@ -32,9 +56,16 @@
   </head>
 
   <body>
-    <h1>Comuni d'Italia per popolazione 2016</h1>
-    <div id="select">
-      <button id="toggle" data="showing">commutare regioni</button>
+     <div id="info">
+      <h1>comuni d'Italia centrale</h1>
+      <p>popolazione residente 2016 (valori assoluti)</p>
+      <p>fai clic o tocca un poligono per mostrare il nome del comune</p>
+  
+      <div id="select">
+        <button id="toggle" data="showing">commutare regioni</button>
+      </div>
+  
+      <h2 id="name"></h2>
     </div>
     
     <div id="map"></div>

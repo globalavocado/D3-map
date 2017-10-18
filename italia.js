@@ -1,7 +1,7 @@
 // set up map
 
-var width = window.innerWidth, 
-  height = window.innerHeight;
+var width = 1000, 
+  height = 800;
 
 var color_domain = [500, 1000, 5000, 10000, 50000, 100000, 100000, 500000, 1000000]
 var ext_color_domain = [0, 500, 1000, 5000, 10000, 50000, 100000, 250000, 500000, 1000000] 
@@ -12,11 +12,11 @@ var color = d3.scaleThreshold()
     .range(d3.schemeBlues[9]);
 
 var projection = d3.geoAlbers()
-  .center([0, 41])
-  .rotate([347, 0])
-  .parallels([35, 45])
-  .scale(3000)
-  .translate([width / 2, height / 2]);
+    .center([2, 41])
+    .rotate([347, 0])
+    .parallels([36, 45])
+    .scale(12000)
+    .translate([width / 1, height / 1]);
 
 var svg = d3.select("#map").append("svg")
     .attr("width", width)
@@ -61,12 +61,24 @@ d3.queue()
         })
       .style("opacity", 0.8)
 
+      // impelment hover functionality
+      
+          .on('mouseover', function(d){
+            var name = d.properties.COMUNE;
+            return document.getElementById('name').innerHTML=name;
+              })
+          .on('mouseout', function(d) {
+            return document.getElementById("name").innerHTML=null;
+            });
+      
+      
       // add regions
       
       svg.append("path")
         .attr("class", "regioni")
         .datum(subunits_reg)
         .attr("d", path);
+
 
       // add a legend
 
@@ -97,6 +109,7 @@ d3.queue()
       .text(function(d, i){ 
           return legend_labels[i]; 
         });
+
 
       // implement map layer toggle button
 
